@@ -932,6 +932,7 @@ static inline void hid_map_usage(struct hid_input *hidinput,
 	struct input_dev *input = hidinput->input;
 	unsigned long *bmap = NULL;
 	unsigned int limit = 0;
+
 	switch (type) {
 	case EV_ABS:
 		bmap = input->absbit;
@@ -950,12 +951,14 @@ static inline void hid_map_usage(struct hid_input *hidinput,
 		limit = LED_MAX;
 		break;
 	}
+
 	if (unlikely(c > limit || !bmap)) {
 		pr_warn_ratelimited("%s: Invalid code %d type %d\n",
 				    input->name, c, type);
 		*bit = NULL;
 		return;
 	}
+
 	usage->type = type;
 	usage->code = c;
 	*max = limit;
