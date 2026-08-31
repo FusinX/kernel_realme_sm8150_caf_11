@@ -5592,6 +5592,11 @@ static int init_input_device(struct touchpanel_data *ts)
     }
 #endif
     input_set_abs_params(ts->input_dev, ABS_MT_TOUCH_MAJOR, 0, 255, 0, 0);
+    
+    /* Inject missing bounds for libinput compatibility */
+    input_set_abs_params(ts->input_dev, ABS_MT_WIDTH_MAJOR, 0, 255, 0, 0);
+    input_set_abs_params(ts->input_dev, ABS_MT_PRESSURE, 0, 255, 0, 0);
+    
     input_set_abs_params(ts->input_dev, ABS_MT_POSITION_X, 0, ts->resolution_info.max_x - 1, 0, 0);
     input_set_abs_params(ts->input_dev, ABS_MT_POSITION_Y, 0, ts->resolution_info.max_y - 1, 0, 0);
     input_set_drvdata(ts->input_dev, ts);
